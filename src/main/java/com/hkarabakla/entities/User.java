@@ -15,12 +15,8 @@ public class User {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
-
-    @OneToMany(cascade = CascadeType.REMOVE,mappedBy = "user_id")
-    private List<Order> orders;
-
-
-
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private List<Orders> orders;
     public int getId() {
         return id;
     }
@@ -42,8 +38,9 @@ public class User {
         this.address = address;
     }
 
-    public List<Order> getOrders() {return orders;  }
-    public void setOrders(List<Order> orders) {this.orders = orders;}
+    public List<Orders> getOrders() {return orders;}
+
+    public void setOrders(List<Orders> orders) {this.orders = orders;}
 
     @Override
     public String toString() {
@@ -51,7 +48,6 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", address=" + address +
-                ", orders=" + orders +
                 '}';
     }
 }

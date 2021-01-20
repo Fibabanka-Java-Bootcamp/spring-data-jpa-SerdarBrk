@@ -1,7 +1,7 @@
 package com.hkarabakla.entities;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -14,9 +14,9 @@ public class Book {
 
     private String description;
 
-    private Timestamp publishedDate;
+    private LocalDate publishedDate;
 
-    private Timestamp addedDate;
+    private LocalDate addedDate;
 
     private double price;
 
@@ -29,11 +29,14 @@ public class Book {
     private Category category;
 
 
-    @ManyToMany(mappedBy = "books",fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
-    private List<Order> orders;
-
-    @ManyToMany(mappedBy = "books",fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
+    @ManyToMany(cascade = CascadeType.REMOVE)
+    @JoinTable(name="author_book",
+            inverseJoinColumns = @JoinColumn(name = "author_id"),
+            joinColumns = @JoinColumn(name="book_isbn"))
     private List<Author> authors;
+
+    @ManyToMany(mappedBy = "books",cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
+    private List<Orders> orders;
 
     public String getIsbn() {
         return isbn;
@@ -56,8 +59,23 @@ public class Book {
         this.category = category;
     }
 
-    public List<Order> getOrders() {return orders;}
-    public void setOrders(List<Order> orders) {this.orders = orders;}
+    public String getDescription() {return description;}
+    public void setDescription(String description) {this.description = description;}
+
+    public LocalDate getPublishedDate() {return publishedDate;}
+    public void setPublishedDate(LocalDate publishedDate) {this.publishedDate = publishedDate;}
+
+    public LocalDate getAddedDate() {return addedDate;}
+    public void setAddedDate(LocalDate addedDate) {this.addedDate = addedDate;}
+
+    public double getPrice() {return price;}
+    public void setPrice(double price) {this.price = price;}
+
+    public String getCurrency() {return currency;}
+    public void setCurrency(String currency) {this.currency = currency;}
+
+    public String getImageUrl() {return imageUrl;}
+    public void setImageUrl(String imageUrl) {this.imageUrl = imageUrl;}
 
     public List<Author> getAuthors() {return authors;}
     public void setAuthors(List<Author> authors) {this.authors = authors;}
