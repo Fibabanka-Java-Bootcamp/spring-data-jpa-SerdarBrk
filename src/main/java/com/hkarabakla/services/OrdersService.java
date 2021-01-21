@@ -24,11 +24,15 @@ public class OrdersService {
     public void orderOperations(){
         Orders orders=new Orders();
         orders.setUser(userRepo.findByName("user"));
-        orders.setBooks(Arrays.asList(bookRepo.findByName("Bilisim ve Kultur")));
-        orders.setTotal(bookRepo.findByName("Bilisim ve Kultur").getPrice());
+        orders.setBooks(Arrays.asList(bookRepo.findByName("Bilisim ve Kultur"),bookRepo.findByName("Bilisim ve Sanat")));
+        orders.setTotal(bookRepo.findByName("Bilisim ve Kultur").getPrice()+bookRepo.findByName("Bilisim ve Sanat").getPrice());
         orders.setCreated_at(LocalDate.now());
         ordersRepo.save(orders);
-        System.out.println(ordersRepo.findByUser(userRepo.findByName("user")));
+       ;
+        System.out.println(ordersRepo.findAllByBooks_Category_Name("bilisim"));
+        System.out.println(ordersRepo.findAllByUser_Name("user"));
+        System.out.println(ordersRepo.findAllByBooks_NameContainingIgnoreCase("ve"));
+        System.out.println(ordersRepo.findAllByBooks_Authors_Name("serdar"));
     }
 
 }

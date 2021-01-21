@@ -29,7 +29,7 @@ public class Book {
     private Category category;
 
 
-    @ManyToMany(cascade = CascadeType.REMOVE,mappedBy = "books",fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "books",fetch = FetchType.LAZY)
     private List<Author> authors;
 
     @ManyToMany(mappedBy = "books",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)

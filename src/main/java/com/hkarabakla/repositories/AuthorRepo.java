@@ -7,11 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-public interface AuthorRepo extends CrudRepository<Author,Integer> {
-    public Author findByName(String name);
-    public Author findByBooks(Book book);
+import java.util.List;
 
-    @Modifying
-    @Query("update Author a set a.name= :name where a.id=:id")
-    public void updateAuthorName(@Param(value="id") int id, @Param(value = "name")String name);
+public interface AuthorRepo extends CrudRepository<Author,Integer> {
+
+    public List<Author> findAllByBooks_Name(String bookName);
+    public List<Author> findAllByBooks_Isbn(String bookName);
+    public List<Author> findAllByBooks_Category_Name(String categoryName);
+
 }

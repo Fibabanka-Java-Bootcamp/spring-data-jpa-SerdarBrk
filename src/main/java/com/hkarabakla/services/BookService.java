@@ -55,7 +55,7 @@ public class BookService {
 
         book1.setPrice(10.5);
         book2.setPrice(5.3);
-        book2.setPrice(15.5);
+        book3.setPrice(15.5);
 
         book1.setImageUrl("file///123");
         book2.setImageUrl("file///456");
@@ -74,15 +74,16 @@ public class BookService {
         book3.setDescription("Insaat");
 
         book1.setPublishedDate(LocalDate.of(2015,5,5));
-        book1.setPublishedDate(LocalDate.of(1990,5,5));
-        book1.setPublishedDate(LocalDate.of(2019,12,10));
+        book2.setPublishedDate(LocalDate.of(1990,5,5));
+        book3.setPublishedDate(LocalDate.of(2019,12,10));
 
         book1.setAuthors(Arrays.asList(author1,author2));
         book2.setAuthors(Arrays.asList(author2,author3));
+        book3.setAuthors(Collections.singletonList(author1));
 
-        author1.setBooks(Arrays.asList(book1,book2));
-        author2.setBooks(Collections.singletonList(book3));
-        author3.setBooks(Collections.singletonList(book3));
+        author1.setBooks(Arrays.asList(book1,book3));
+        author2.setBooks(Arrays.asList(book2,book1));
+        author3.setBooks(Collections.singletonList(book2));
 
         category1Books.add(book1);
         category1Books.add(book2);
@@ -91,7 +92,7 @@ public class BookService {
         category2.setBooks(category2Books);
 
         authorRepo.save(author1);
-        //authorRepo.save(author2);
+        authorRepo.save(author2);
         authorRepo.save(author3);
         categoryRepo.save(category1);
         bookRepo.save(book1);
@@ -101,7 +102,7 @@ public class BookService {
 
         System.out.println(bookRepo.findByAuthors_Name("serdar"));
         System.out.println(bookRepo.findByAuthors_Name("recai"));
-        //System.out.println(bookRepo.findByAuthors_Name("sukufe"));
+        System.out.println(bookRepo.findByAuthors_Name("sukufe"));
         System.out.println(bookRepo.findByCategory_Name("bilisim"));
 
     }
