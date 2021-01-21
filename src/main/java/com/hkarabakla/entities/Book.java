@@ -24,18 +24,15 @@ public class Book {
 
     private String imageUrl;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
 
-    @ManyToMany(cascade = CascadeType.REMOVE)
-    @JoinTable(name="author_book",
-            inverseJoinColumns = @JoinColumn(name = "author_id"),
-            joinColumns = @JoinColumn(name="book_isbn"))
+    @ManyToMany(cascade = CascadeType.REMOVE,mappedBy = "books",fetch = FetchType.EAGER)
     private List<Author> authors;
 
-    @ManyToMany(mappedBy = "books",cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "books",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
     private List<Orders> orders;
 
     public String getIsbn() {
@@ -91,7 +88,6 @@ public class Book {
                 ", price=" + price +
                 ", currency='" + currency + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
-                ", authors=" + authors +
                 '}';
     }
 }

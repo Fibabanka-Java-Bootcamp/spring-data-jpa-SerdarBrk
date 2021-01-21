@@ -12,16 +12,16 @@ public class Orders {
 
     private LocalDate created_at;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="user_id",referencedColumnName = "id")
     private User user;
 
     private double total;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "order_book",
-                joinColumns = @JoinColumn(name = "order_id"),
-                inverseJoinColumns = @JoinColumn(name = "book_isbn"))
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_isbn"))
     private List<Book> books;
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
@@ -37,4 +37,15 @@ public class Orders {
 
     public List<Book> getBooks() {return books;}
     public void setBooks(List<Book> books) {this.books = books;}
+
+    @Override
+    public String toString() {
+        return "Orders{" +
+                "id=" + id +
+                ", created_at=" + created_at +
+                ", total=" + total +
+                ", books=" + books +
+                ", user="+user+
+                '}';
+    }
 }

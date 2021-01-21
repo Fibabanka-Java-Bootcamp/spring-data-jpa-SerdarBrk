@@ -12,7 +12,10 @@ public class Author {
 
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "authors")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="author_book",
+            joinColumns = @JoinColumn(name = "author_id"),
+            inverseJoinColumns = @JoinColumn(name="book_name"))
     private List<Book> books;
 
     public int getId() {return id;}
@@ -29,6 +32,7 @@ public class Author {
         return "Author{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", books=" + books +
                 '}';
     }
 }

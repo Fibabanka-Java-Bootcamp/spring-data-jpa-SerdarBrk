@@ -10,9 +10,10 @@ public class Category {
     @GeneratedValue
     private int id;
 
+    @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Book> books;
 
     public int getId() {
